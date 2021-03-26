@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
+          integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA=="
+          crossorigin="anonymous"/>
+</head>
+<style>
+    body {
+        background-color: #352f5b;
+    }
+
+    .container {
+        max-width: 40vw;
+    }
+
+    input[type=text],
+    input[type=text]:focus {
+        color: #fff;
+        border: none;
+        background: rgba(12, 0, 0, 0.2);
+        max-width: 40vw;
+    }
+
+    .todoscss li {
+        background: #423a6f;
+    }
+
+    .delete {
+        cursor: pointer;
+    }
+
+    .form-control {
+        font-weight: 300;
+        color: lightblue;
+    }
+</style>
+<body>
+<div class="container">
+    <header class="text-center text-light my-4">
+        <h1 class="my-4">Paul Louis' Sexy ToDoList</h1>
+        <form class="search">
+            <input class="form-control m-auto" type="text" name="search" placeholder="search for Done or Todos"/>
+        </form>
+    </header>
+    <ul class="list-group todoscss todos mx-auto text-light">
+        <!--            list item One-->
+        <li class="list-group-item justify-content-between d-flex align-items-center">
+            <span>Learn how to Bake Cookies with my Daughter</span>
+            <span class="delete">x</span>
+        </li>
+        <!--            List Item Two-->
+        <li class="list-group-item justify-content-between d-flex align-items-center">
+            <span>Learn Tailwind CSS</span>
+            <span class="delete">x</span>
+        </li>
+        <!--            List Item three-->
+        <li class="list-group-item justify-content-between d-flex align-items-center">
+            <span>Learn Typescript</span>
+            <span class="delete">x</span>
+        </li>
+    </ul>
+    <form class="add text-center my-4">
+        <label class="text-light">ADD NEW LIST ITEM...</label>
+        <input class="form-control m-auto" type="text" name="add" placeholder="...">
+    </form>
+</div>
+<!--Starting the Page-Script-->
+<script>
+    //creating variable(type constant) holding the field where user input new Todo
+    const addForm = document.querySelector(".add");
+    //creating variable to hold the created and To Be created Todos to manipulate and call methods on it
+    let list = document.querySelector(".todos");
+    //creating a variable(type constant) holding on the search input field and class form-control
+    const search = document.querySelector(".search > .form-control");
+
+    //generated template holding the default value of how a list should look like and be rendered as, and store what the user input in the Event Listener
+    const generateTemplate = (todo) => {
+        const item =
+            `<li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>${todo}</span>
+                    <span class="delete">×</span>
+                    </li>`;
+        //calls the string that (item) is holding from the Event listener and display as new item in the items field
+        list.innerHTML += item
+    };
+
+    //adding an event listen to the addForm variable to submit the value of the inputted item in the generateTemplate object.
+    addForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        //costant will hold the value that user decide to add to the list
+        const todo = addForm.add.value.trim();
+        //if user inputed a value, then reset the container list of todos to [0]
+        if (todo.length) {
+            generateTemplate(todo)
+            addForm.reset()
+        }
+    });
+    //delete the created/old item list
+    list.addEventListener('click', e =>{
+        if(e.target.classList.contains('delete')){
+            e.target.parentElement.remove()
+        }
+    });
+</script>
+</body>
+</html>
